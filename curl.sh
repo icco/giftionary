@@ -13,5 +13,5 @@ curl 'https://www.tumblr.com/svc/search/inline_gif' \
 -H 'accept: application/json, text/javascript, */*; q=0.01' \
 -H 'cache-control: no-cache' \
 -H 'referer: https://www.tumblr.com/search/test' \
---data 'q=sad&limit=200' \
+--data 'q=&limit=200' \
 --compressed
