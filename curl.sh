@@ -8,7 +8,6 @@ curl 'https://www.tumblr.com/svc/search/inline_gif' \
 -H 'x-requested-with: XMLHttpRequest' \
 -H 'cookie: pfp=ifMVfdKh5mrfxBApxKuxRbtz5QLe7GHieTUwgrMz; pfs=6UtIqP0FILNPClJ8eD5ggwmdV8; pfe=1441213499; pfu=120853812' \
 -H 'pragma: no-cache' \
--H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.81 Safari/537.36' \
 -H 'content-type: application/x-www-form-urlencoded; charset=UTF-8' \
 -H 'accept: application/json, text/javascript, */*; q=0.01' \
 -H 'cache-control: no-cache' \
