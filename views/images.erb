@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Giftionary Search "<%= @query %>"</title>
+
+    <!-- Mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/css/tachyons.min.css">
+    <style>
+      ul.sentence {
+        padding: 0;
+        margin: 0;
+        text-align: left;
+        display: inline;
+        list-style: none;
+      }
+
+      ul.sentence li {
+        display: inline;
+        margin: 0;
+      }
+
+      ul.sentence li:after {
+        content: ", ";
+      }
+
+      ul.sentence li:last-child:after {
+        content: ".";
+      }
+
+      ul.sentence li:nth-last-child(2):after {
+        content: " & ";
+      }
+
+      /* Based on http://mrmrs.io/links/ */
+      a, a:link, a:visited {
+        transition: color .4s;
+        color: #265C83;
+      }
+
+      a:hover {
+        color: #7FDBFF;
+      }
+
+      a:active {
+        transition: color .3s;
+        color: #007BE6;
+      }
+    </style>
+  </head>
+  <body class="mw7 center">
+    <% @urls.each do |url| %>
+      <img src="<%= url %>" />
+    <% end %>
+  </body>
+</html>

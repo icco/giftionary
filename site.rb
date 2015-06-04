@@ -15,7 +15,9 @@ post "/" do
 end
 
 get "/s/:query" do
-  @urls = query(params[:query])
+  @query = params[:query]
+  @urls = query @query
+
   erb :images
 end
 
