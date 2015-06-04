@@ -15,15 +15,15 @@
       }
     </style>
   </head>
-  <body class="mw8 center">
-    <div class="mvm">
+  <body class="">
+    <div class="mvm mw8 center">
       <form class="pam mbs" action="/" enctype="multipart/form-data" method="post" novalidate="">
         <input class="w-80 pas h3 di" type="search" name="q" value="<%= @query %>" placeholder="Words" autofocus="">
         <button class="w-10 di h3 btn btn--blue" type="submit">Go</button>
       </form>
     </div>
 
-    <div id="container">
+    <div id="container" class="w-100">
       <% @urls.each do |url| %>
         <div class="item">
           <img src="<%= url %>" />
