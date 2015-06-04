@@ -18,5 +18,5 @@ end
 data = JSON.parse response.body
 
 data["response"]["media"].each do |pic|
-  p pic["media_url"]
+  puts pic["media_url"]
 end
