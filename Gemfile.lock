@@ -5,6 +5,7 @@ GEM
     eventmachine (1.0.7)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
+    json (1.8.3)
     multipart-post (2.0.0)
     oj (2.12.9)
     rack (1.6.1)
@@ -27,6 +28,7 @@ PLATFORMS
 
 DEPENDENCIES
   faraday
+  json
   oj
   shotgun
   sinatra
