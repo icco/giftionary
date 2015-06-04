@@ -7,6 +7,7 @@ configure do
 end
 
 get "/" do
+  @urls = []
   erb :index
 end
 
@@ -18,7 +19,7 @@ get "/s/:query" do
   @query = params[:query]
   @urls = get_gifs @query
 
-  erb :images
+  erb :index
 end
 
 def get_gifs str
