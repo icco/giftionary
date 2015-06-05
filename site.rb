@@ -33,11 +33,14 @@ end
 
 def get_gifs str
   begin
+    # Setup connection options for talking to Tumblr
     conn = Faraday.new(:url => "https://www.tumblr.com") do |faraday|
       faraday.request  :url_encoded
       faraday.response :logger
       faraday.adapter  Faraday.default_adapter
     end
+
+    # Actually make the request
     response = conn.post do |req|
       req.url "/svc/search/inline_gif"
       req.headers["cookie"] = "pfp=ifMVfdKh5mrfxBApxKuxRbtz5QLe7GHieTUwgrMz; pfs=6UtIqP0FILNPClJ8eD5ggwmdV8; pfe=1441213499; pfu=120853812"
