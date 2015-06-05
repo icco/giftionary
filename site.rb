@@ -51,6 +51,6 @@ def get_gifs str
     end.uniq.shuffle
   rescue => e
     logger.error e
-    return Dir.foreach("#{settings.public_dir}/img/gifs").reject { |l| l[0] == "." }.map {|l| "/img/gifs/#{l}" }
+    return Dir.foreach("#{settings.public_dir}/img/gifs").reject { |l| l[0] == "." }.map {|l| "/img/gifs/#{l}" }.shuffle
   end
 end
