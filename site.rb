@@ -38,5 +38,5 @@ def get_gifs str
 
   return data["response"]["media"].map do |pic|
     pic["media_url"]
-  end
+  end.uniq.shuffle
 end
