@@ -37,7 +37,8 @@
         document.addEventListener("DOMContentLoaded", function() {
           var c = document.querySelector("#container");
           p = new Packery(c, {
-            gutter: 10
+            gutter: 10,
+            transitionDuration: 0,
           });
           $.get('/s/<%= @query %>.json', function(data) {
             var images = []
