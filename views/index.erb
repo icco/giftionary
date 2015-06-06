@@ -14,10 +14,14 @@
     </style>
   </head>
   <body class="">
-    <div class="mvm mw8 center">
-      <form class="pam mbs" action="/" enctype="multipart/form-data" method="post" novalidate="">
-        <input class="w-80 pas h3 f3 di" type="search" name="q" value="<%= @query %>" placeholder="Words" autofocus="">
-        <button class="w-10 di h3 f3 btn btn--blue" type="submit">Gifs</button>
+    <div class="mvm pam mbs dt mw8 center">
+      <form class="" action="/" enctype="multipart/form-data" method="post" novalidate="">
+        <div class="dtc w-100">
+          <input class="pas h3 f3 di w-100" type="search" name="q" value="<%= @query %>" placeholder="Words" autofocus="">
+        </div>
+        <div class="dtc">
+          <button class="h3 mhs f3 btn btn--blue" type="submit">Gifs</button>
+        </div>
       </form>
     </div>
 
