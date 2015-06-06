@@ -35,6 +35,10 @@ get %r{/s/([A-z0-9\-\_ (%20)]+)} do
   erb :index
 end
 
+not_found do
+  erb "404".to_sym
+end
+
 def get_gifs str
   begin
     # Setup connection options for talking to Tumblr
