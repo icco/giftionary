@@ -16,6 +16,10 @@ post "/" do
   redirect "/s/#{params["q"]}"
 end
 
+get "/s/" do
+  redirect "/"
+end
+
 get %r{/s/([A-z0-9\-\_ (%20)]+)\.json} do
   @query = params["captures"][0]
   @urls = get_gifs @query
