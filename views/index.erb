@@ -39,11 +39,14 @@
             transitionDuration: 0,
           });
           $.get('/s/<%= @query %>.json', function(data) {
-            var images = []
             for (i in data) {
-              images[i] = new Image();
-              images[i].src = data[i];
-              imagesLoaded(images[i], function(e) {
+              var image = new Image();
+              image.src = data[i];
+              var a = $("<a />");
+              a.attr("href", "https://www.google.com/searchbyimage?image_url=" + data[i]);
+              a.attr("target", "_blank");
+              a.append(image);
+              imagesLoaded(a, function(e) {
                 $(c).append(e.elements);
                 p.addItems(e.elements);
                 p.layout();
