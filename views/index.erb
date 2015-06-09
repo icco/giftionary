@@ -23,6 +23,8 @@
           <button class="h3 mhs f3 btn btn--blue" type="submit">Gifs</button>
         </div>
       </form>
+
+      <div id="found" class="tc lh-body mw-100 ptm"></div>
     </div>
 
     <div id="container" class="w-100"></div>
@@ -39,6 +41,8 @@
             transitionDuration: 0,
           });
           $.get('/s/<%= @query %>.json', function(data) {
+            $("#found").text("Found " + data.length + " gifs.");
+
             for (i in data) {
               var image = new Image();
               image.src = data[i];
