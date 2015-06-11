@@ -64,6 +64,10 @@ def get_gifs str
   rescue => e
     logger.error e
     logger.error data["response"]
-    return Dir.foreach("#{settings.public_dir}/img/gifs").reject { |l| l[0] == "." }.map {|l| "/img/gifs/#{l}" }.shuffle
+    if RACK_ENV == :development
+      return Dir.foreach("#{settings.public_dir}/img/gifs").reject { |l| l[0] == "." }.map {|l| "/img/gifs/#{l}" }.shuffle
+    else
+      []
+    end
   end
 end
