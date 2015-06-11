@@ -63,11 +63,13 @@ def get_gifs str
     end.uniq.shuffle
   rescue => e
     logger.error e
-    logger.error data["response"]
+    if data
+      logger.error data["response"]
+    end
     if RACK_ENV == :development
       return Dir.foreach("#{settings.public_dir}/img/gifs").reject { |l| l[0] == "." }.map {|l| "/img/gifs/#{l}" }.shuffle
     else
-      []
+      return []
     end
   end
 end
