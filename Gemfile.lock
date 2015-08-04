@@ -1,14 +1,14 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    daemons (1.2.2)
+    daemons (1.2.3)
     eventmachine (1.0.7)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     json (1.8.3)
     multipart-post (2.0.0)
-    oj (2.12.9)
-    rack (1.6.1)
+    oj (2.12.11)
+    rack (1.6.4)
     rack-protection (1.5.3)
       rack
     shotgun (0.9.1)
