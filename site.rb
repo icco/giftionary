@@ -58,6 +58,10 @@ def get_gifs str
 
     data = JSON.parse response.body
 
+    if data["meta"]["status"] != 200
+      raise "ERROR: #{data["meta"]["msg"]}. #{data["response"]}"
+    end
+
     return data["response"]["media"].map do |pic|
       pic["media_url"]
     end.uniq.shuffle
