@@ -3,11 +3,11 @@ GEM
   specs:
     daemons (1.2.3)
     eventmachine (1.0.8)
-    faraday (0.9.1)
+    faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
     json (1.8.3)
     multipart-post (2.0.0)
-    oj (2.12.14)
+    oj (2.13.0)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
@@ -35,4 +35,4 @@ DEPENDENCIES
   thin
 
 BUNDLED WITH
-   1.10.2
+   1.10.6
