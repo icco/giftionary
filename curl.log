@@ -1,6 +1,7 @@
 #! /bin/sh
 
 curl 'https://www.tumblr.com/svc/search/inline_gif' \
- -H 'X-tumblr-form-key: TZDa1ozE8d8ebfft06sPZakAypM' \
- -H 'Cookie: pfp=gODtDkLrHgUTkhDmdGDlyWZ0eVGMr4aheNJqrtQB; pfs=cAb1Zkgms7RPrw2QbYud0tqm0; pfe=1448636043; pfu=120853812;' \
- -H 'Referer: https://www.tumblr.com/new/text' --data 'q=trees&limit=200' --compressed
+ -H 'x-tumblr-form-key: TZDa1ozE8d8ebfft06sPZakAypM' \
+ -H 'cookie: pfp=5zg5qruuAbA17VdlWvj0iDRTF7pj8zS9FNVDbOFm; pfs=HZdC210qeABdV7Y4oBU0QRP5w3Q; pfe=1453524233; pfu=120853812;' \
+ -H 'cache-control: no-cache' \
+ -H 'referer: https://www.tumblr.com/new/text' --data 'q=trees&limit=200' --compressed
