@@ -69,7 +69,8 @@ rescue => e
   logger.error e
   logger.error data["response"] if data
   if RACK_ENV == :development
-    return Dir.foreach("#{settings.public_dir}/img/gifs").reject { |l| l[0] == "." }.map { |l| "/img/gifs/#{l}" }.shuffle
+    files = Dir.foreach("#{settings.public_dir}/img/gifs").reject { |l| l[0] == "." }
+    return files.map { |l| "/img/gifs/#{l}" }.shuffle
   else
     return []
   end
