@@ -3,5 +3,5 @@
 
 $stdout.sync = true
 
-require './site'
+require "./site"
 run Sinatra::Application

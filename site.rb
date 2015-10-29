@@ -3,7 +3,7 @@ require "bundler"
 Bundler.require(:default, ENV["RACK_ENV"] || :development)
 
 configure do
-  RACK_ENV = (ENV['RACK_ENV'] || :development).to_sym
+  RACK_ENV = (ENV["RACK_ENV"] || :development).to_sym
   enable :logging
 end
 
@@ -39,42 +39,38 @@ not_found do
   erb "404".to_sym
 end
 
-def get_gifs str
-  begin
-    # Setup connection options for talking to Tumblr
-    conn = Faraday.new(:url => "https://www.tumblr.com") do |faraday|
-      faraday.request  :url_encoded
-      faraday.response :logger
-      faraday.adapter  Faraday.default_adapter
-    end
+def get_gifs(str)
+  # Setup connection options for talking to Tumblr
+  conn = Faraday.new(url: "https://www.tumblr.com") do |faraday|
+    faraday.request :url_encoded
+    faraday.response :logger
+    faraday.adapter Faraday.default_adapter
+  end
 
-    # Actually make the request
-    response = conn.post do |req|
-      req.url "/svc/search/inline_gif"
-      req.headers["cookie"] = "pfp=5zg5qruuAbA17VdlWvj0iDRTF7pj8zS9FNVDbOFm; pfs=HZdC210qeABdV7Y4oBU0QRP5w3Q; pfe=1453524233; pfu=120853812;"
-      req.headers["x-tumblr-form-key"] = "TZDa1ozE8d8ebfft06sPZakAypM"
-      req.headers["cache-control"] = "no-cache"
-      req.body = URI.encode_www_form({ q: str, limit: 200 })
-    end
+  # Actually make the request
+  response = conn.post do |req|
+    req.url "/svc/search/inline_gif"
+    req.headers["cookie"] = "pfp=5zg5qruuAbA17VdlWvj0iDRTF7pj8zS9FNVDbOFm; pfs=HZdC210qeABdV7Y4oBU0QRP5w3Q; pfe=1453524233; pfu=120853812;"
+    req.headers["x-tumblr-form-key"] = "TZDa1ozE8d8ebfft06sPZakAypM"
+    req.headers["cache-control"] = "no-cache"
+    req.body = URI.encode_www_form(q: str, limit: 200)
+  end
 
-    data = JSON.parse response.body
+  data = JSON.parse response.body
 
-    if data["meta"]["status"] != 200
-      raise "ERROR: #{data["meta"]["msg"]}. #{data["response"]}"
-    end
+  if data["meta"]["status"] != 200
+    fail "ERROR: #{data["meta"]["msg"]}. #{data["response"]}"
+  end
 
-    return data["response"]["media"].map do |pic|
-      pic["media_url"]
-    end.uniq.shuffle
-  rescue => e
-    logger.error e
-    if data
-      logger.error data["response"]
-    end
-    if RACK_ENV == :development
-      return Dir.foreach("#{settings.public_dir}/img/gifs").reject { |l| l[0] == "." }.map {|l| "/img/gifs/#{l}" }.shuffle
-    else
-      return []
-    end
+  return data["response"]["media"].map do |pic|
+    pic["media_url"]
+  end.uniq.shuffle
+rescue => e
+  logger.error e
+  logger.error data["response"] if data
+  if RACK_ENV == :development
+    return Dir.foreach("#{settings.public_dir}/img/gifs").reject { |l| l[0] == "." }.map { |l| "/img/gifs/#{l}" }.shuffle
+  else
+    return []
   end
 end
