@@ -50,10 +50,10 @@ def get_gifs(str)
   # Actually make the request
   response = conn.post do |req|
     req.url "/svc/search/inline_gif"
-    req.headers["cookie"] = "pfu=120853812; pfe=1462069116; pfp=mq8T049GyWjlu3WuFFwUBiYEx5V7qidXYsmn8O03; pfs=cgckLXpHuyueqyztjIww6IryMgw;"
+    req.headers["cookie"] = "pfp=rBZtCwy8GglYA6PXDDfa8PlwbecBo6irq8IwllkV; pfs=2BZ1elUgwfwocEyEPzHMITAD6oU; pfe=1470326716; pfu=120853812;"
     req.headers["x-tumblr-form-key"] = "TZDa1ozE8d8ebfft06sPZakAypM"
     req.headers["cache-control"] = "no-cache"
-    req.body = URI.encode_www_form(q: str, limit: 200)
+    req.body = URI.encode_www_form(q: str, limit: 200, context: "inline-gif")
   end
 
   data = JSON.parse response.body
