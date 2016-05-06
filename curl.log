@@ -1,21 +1,7 @@
 #! /bin/sh
 
-#curl 'https://www.tumblr.com/svc/search/inline_gif' \
-# -H 'x-tumblr-form-key: TZDa1ozE8d8ebfft06sPZakAypM' \
-# -H 'cookie: pfu=120853812; pfe=1462069116; pfp=mq8T049GyWjlu3WuFFwUBiYEx5V7qidXYsmn8O03; pfs=cgckLXpHuyueqyztjIww6IryMgw' \
-# -H 'cache-control: no-cache' \
-# -H 'referer: https://www.tumblr.com/dashboard' --data 'q=trees&limit=200' --compressed
-
 curl 'https://www.tumblr.com/svc/search/inline_gif' \
  -H 'x-tumblr-form-key: TZDa1ozE8d8ebfft06sPZakAypM' \
- -H 'origin: https://www.tumblr.com' \
- -H 'accept-encoding: gzip, deflate' \
- -H 'accept-language: en-US,en;q=0.8' \
- -H 'x-requested-with: XMLHttpRequest' \
- -H 'cookie: __qca=P0-763584570-1327187375279; _springMet=%7B%22uid%22%3A%221Qk5dIx8GHNKJ.8%22%2C%22last%22%3A1340996905168%2C%22step%22%3A1%2C%22cqtime%22%3A1340996919823%2C%22cqurl%22%3A%22%22%7D; tmgioct=kqJB1eIflsDoaQEb5APVkyK5; _otor=1350493448666.https%3A//www.facebook.com/; _otui=1040575674.1350493448666.1350493448666.1350493448666.1.1; customize_word_wrap=1; rxx=bnswvef57so.14w8s2s&v=1; __cfduid=dc183d1dc1f7f9a513f4bf0a1c8d98f581445947961; yx=1b0s7b1op54zz%26o%3D3%26f%3D0d; tth=NDcwMzAwskTVjoqySjSyMjAzNDAyMkmrnGsH8ZTMLcyMLY2MWS0NzZRveH2rHA0A%2BHoKyA; _ga=GA1.2.2065701170.1327178583; __utma=189990958.1287834720.1336494163.1458046210.1458510408.582; __utmz=189990958.1458510408.582.563.utmcsr=thebumbys.tumblr.com|utmccn=(referral)|utmcmd=referral|utmcct=/; anon_id=YZBAGCUUMDVYXPVJSHFWLGHCSYVODJEE; pfp=rBZtCwy8GglYA6PXDDfa8PlwbecBo6irq8IwllkV; pfs=2BZ1elUgwfwocEyEPzHMITAD6oU; pfe=1470326716; pfu=120853812; language=%2Cen_US; logged_in=1; capture=TZDa1ozE8d8ebfft06sPZakAypM; last_toast=1462550763; devicePixelRatio=1; documentWidth=1440' \
- -H 'pragma: no-cache' \
- -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.94 Safari/537.36' \
- -H 'content-type: application/x-www-form-urlencoded; charset=UTF-8' \
- -H 'accept: application/json, text/javascript, */*; q=0.01' \
+ -H 'cookie: pfp=rBZtCwy8GglYA6PXDDfa8PlwbecBo6irq8IwllkV; pfs=2BZ1elUgwfwocEyEPzHMITAD6oU; pfe=1470326716; pfu=120853812' \
  -H 'cache-control: no-cache' \
- -H 'referer: https://www.tumblr.com/dashboard' --data 'q=&limit=200&context=inline-gif' --compressed
+ -H 'referer: https://www.tumblr.com/dashboard' --data 'q=trees&limit=200&context=inline-gif' --compressed
