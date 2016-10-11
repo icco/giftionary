@@ -1,3 +1,3 @@
 # giftionary.city
 
-Giftionary's original goal was to be an index for your favorite gifs, but instead, one day at [RC](http://recurse.com), it turned into a wrapper for Tumblr's gif search.
+Giftionary has had many lives. It's original design was a dictionary for your personal gifs. It then morphed into a search engine for gifs. And now it has morphed into a personal image host.
