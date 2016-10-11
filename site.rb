@@ -1,13 +1,13 @@
 require "rubygems"
 require "bundler"
-RACK_ENV = (ENV['RACK_ENV'] || :development).to_sym
+RACK_ENV = (ENV["RACK_ENV"] || :development).to_sym
 Bundler.require(:default, RACK_ENV)
 
 require "logger"
 require "set"
 
-require './version.rb'
-require './lib/image.rb'
+require "./version.rb"
+require "./lib/image.rb"
 
 class Giftionary < Sinatra::Base
   register Sinatra::ActiveRecordExtension
@@ -20,7 +20,7 @@ class Giftionary < Sinatra::Base
     connections = {
       :development => "postgres://localhost/giftionary",
       :test => "postgres://postgres@localhost/giftionary_test",
-      :production => ENV['DATABASE_URL']
+      :production => ENV["DATABASE_URL"]
     }
 
     url = URI(connections[RACK_ENV])
@@ -42,12 +42,12 @@ class Giftionary < Sinatra::Base
     end
     set :database, options
 
-    use Rack::Session::Cookie, :key => 'rack.session',
-      :path => '/',
+    use Rack::Session::Cookie, :key => "rack.session",
+      :path => "/",
       :expire_after => 86400, # 1 day
-      :secret => ENV['SESSION_SECRET']
+      :secret => ENV["SESSION_SECRET"]
     use OmniAuth::Builder do
-      provider :twitter, ENV['TWITTER_CONSUMER_KEY'], ENV['TWITTER_CONSUMER_SECRET']
+      provider :twitter, ENV["TWITTER_CONSUMER_KEY"], ENV["TWITTER_CONSUMER_SECRET"]
     end
 
   end
@@ -64,10 +64,39 @@ class Giftionary < Sinatra::Base
     end
   end
 
-  get '/auth/:name/callback' do
-    auth = request.env['omniauth.auth']
+  get "/auth/:name/callback" do
+    auth = request.env["omniauth.auth"]
     session[:username] = auth.info.nickname
 
-    redirect '/'
+    redirect "/"
+  end
+
+  post "/upload" do
+    if !session[:username]
+      error 403
+      return
+    end
+
+    uuid = SecureRandom.uuid
+    filename = "#{session[:username]}/#{uuid}"
+    connection = Fog::Storage.new({
+      provider: "GoogleJSON",
+      google_project: "icco-natwelch",
+      google_json_key_string: ENV["GOOGLE_JSON_KEY"],
+    })
+    bucket = connection.directories.get("giftionary")
+    file = bucket.files.create(
+      :key => filename,
+      :body => File.open(params["file"][:tempfile]),
+      :public => true
+    )
+
+    i = Image.new
+    i.username = session[:username]
+    i.stub = params["stub"]
+    i.gif_url = file.public_url
+    i.save
+
+    redirect "/"
   end
 end
