@@ -4,6 +4,7 @@ ruby "2.3.1"
 
 gem "activerecord", "~> 4.2", require: "active_record"
 gem "activesupport", "~> 4.2", require: ["active_support", "active_support/core_ext"]
+gem "erubis"
 gem "fog-google"
 gem "json"
 gem "mime-types"

@@ -41,9 +41,33 @@ class Giftionary < Sinatra::Base
       options[:adapter] = "postgresql"
     end
     set :database, options
+
+    use Rack::Session::Cookie, :key => 'rack.session',
+      :path => '/',
+      :expire_after => 86400, # 1 day
+      :secret => ENV['SESSION_SECRET']
+    use OmniAuth::Builder do
+      provider :twitter, ENV['TWITTER_CONSUMER_KEY'], ENV['TWITTER_CONSUMER_SECRET']
+    end
+
   end
 
   get "/health/?" do
     "ok"
+  end
+
+  get "/" do
+    if session[:username]
+      erb :home
+    else
+      erb :login
+    end
+  end
+
+  get '/auth/:name/callback' do
+    auth = request.env['omniauth.auth']
+    session[:username] = auth.info.nickname
+
+    redirect '/'
   end
 end
