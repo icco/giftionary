@@ -68,19 +68,6 @@ class Giftionary < Sinatra::Base
     "ok"
   end
 
-  get "/:username/:stub" do
-    @image = Image.where(username: params[:username], stub: params[:stub]).first
-    redirect @image.url
-  end
-
-  get "/:username" do
-    @title = "@#{params["username"]}"
-    if session[:username]
-      @images = Image.where(username: session[:username]).order(updated_at: :desc)
-      erb :home
-    end
-  end
-
   get "/" do
     if session[:username]
       redirect "/#{session[:username]}"
@@ -132,6 +119,21 @@ class Giftionary < Sinatra::Base
     i.save
 
     redirect "/"
+  end
+
+  get "/:username/:stub" do
+    @image = Image.where(username: params[:username], stub: params[:stub]).first
+    redirect @image.url
+  end
+
+  get "/:username" do
+    @title = "@#{params["username"]}"
+    if session[:username] && session[:username] == params["username"]
+      @images = Image.where(username: session[:username]).order(updated_at: :desc)
+      erb :home
+    else
+      redirect "/"
+    end
   end
 
   def title
