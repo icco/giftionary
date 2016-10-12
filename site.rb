@@ -117,7 +117,7 @@ class Giftionary < Sinatra::Base
     i = Image.new
     i.username = session[:username]
     i.stub = params["stub"].to_s.downcase
-    t.description = params["description"]
+    i.description = params["description"]
     i.url = file.public_url
     i.save
 
