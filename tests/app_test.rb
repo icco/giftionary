@@ -16,4 +16,14 @@ class Test < Minitest::Test
     get "/health/"
     assert last_response.ok?
   end
+
+  def test_upload
+    params = {
+      file: Rack::Test::UploadedFile.new(File.expand_path("../flatcircle.gif", __FILE__)),
+      stub: "flatcircle"
+    }
+    env =  { 'rack.session' => { username: "test_user" } }
+    post "/upload", params, env
+    assert last_response.ok?
+  end
 end
