@@ -2,6 +2,5 @@
 # encoding: utf-8
 
 $stdout.sync = true
-
-require "./site"
-run Sinatra::Application
+require File.expand_path("../site.rb", __FILE__)
+run Giftionary

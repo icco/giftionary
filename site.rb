@@ -1,77 +1,112 @@
 require "rubygems"
 require "bundler"
-Bundler.require(:default, ENV["RACK_ENV"] || :development)
+RACK_ENV = (ENV["RACK_ENV"] || :development).to_sym
+Bundler.require(:default, RACK_ENV)
 
-configure do
-  RACK_ENV = (ENV["RACK_ENV"] || :development).to_sym
-  enable :logging
-end
+require "logger"
+require "set"
 
-get "/" do
-  @urls = []
-  erb :index
-end
+require "./version.rb"
+require "./lib/image.rb"
 
-post "/" do
-  redirect "/s/#{params["q"]}"
-end
+class Giftionary < Sinatra::Base
+  register Sinatra::ActiveRecordExtension
+  use Rack::Deflater
 
-get "/s/" do
-  redirect "/"
-end
+  layout :main
+  configure do
+    set :logging, true
 
-get %r{/s/([A-z0-9\-\_ (%20)]+)\.json} do
-  @query = params["captures"][0]
-  @urls = get_gifs @query
+    connections = {
+      :development => "postgres://localhost/giftionary",
+      :test => "postgres://postgres@localhost/giftionary_test",
+      :production => ENV["DATABASE_URL"]
+    }
 
-  content_type :json
-  @urls.to_json
-end
+    url = URI(connections[RACK_ENV])
+    options = {
+      :adapter => url.scheme,
+      :host => url.host,
+      :port => url.port,
+      :database => url.path[1..-1],
+      :username => url.user,
+      :password => url.password
+    }
 
-get %r{/s/([A-z0-9\-\_ (%20)]+)} do
-  @query = params["captures"][0]
-  @urls = []
+    case url.scheme
+    when "sqlite"
+      options[:adapter] = "sqlite3"
+      options[:database] = url.host + url.path
+    when "postgres"
+      options[:adapter] = "postgresql"
+    end
+    set :database, options
 
-  erb :index
-end
+    use Rack::Session::Cookie, :key => "rack.session",
+      :path => "/",
+      :expire_after => 86400, # 1 day
+      :secret => ENV["SESSION_SECRET"]
+    use OmniAuth::Builder do
+      provider :twitter, ENV["TWITTER_CONSUMER_KEY"], ENV["TWITTER_CONSUMER_SECRET"]
+    end
 
-not_found do
-  erb "404".to_sym
-end
-
-def get_gifs(str)
-  # Setup connection options for talking to Tumblr
-  conn = Faraday.new(url: "https://www.tumblr.com") do |faraday|
-    faraday.request :url_encoded
-    faraday.response :logger
-    faraday.adapter Faraday.default_adapter
   end
 
-  # Actually make the request
-  response = conn.post do |req|
-    req.url "/svc/search/inline_gif"
-    req.headers["cookie"] = "pfp=rBZtCwy8GglYA6PXDDfa8PlwbecBo6irq8IwllkV; pfs=2BZ1elUgwfwocEyEPzHMITAD6oU; pfe=1470326716; pfu=120853812;"
-    req.headers["x-tumblr-form-key"] = "TZDa1ozE8d8ebfft06sPZakAypM"
-    req.headers["cache-control"] = "no-cache"
-    req.body = URI.encode_www_form(q: str, limit: 200, context: "inline-gif")
+  before do
+    @connection = Fog::Storage::GoogleJSON.new({
+      google_project: "icco-natwelch",
+      google_json_key_string: ENV["GOOGLE_JSON_KEY"],
+    })
+    if session[:username]
+      @bucket = @connection.directories.get("giftionary")
+      @files = Fog::Storage::GoogleJSON::Files.new({
+        directory: @bucket,
+        service: @connection,
+        preifx: "#{session[:username]}/"
+      })
+    end
   end
 
-  data = JSON.parse response.body
-
-  if data["meta"]["status"] != 200
-    fail "ERROR: #{data["meta"]["msg"]}. #{data["response"]}"
+  get "/health/?" do
+    "ok"
   end
 
-  return data["response"]["media"].map do |pic|
-    pic["media_url"]
-  end.uniq.shuffle
-rescue => e
-  logger.error e
-  logger.error data["response"] if data
-  if RACK_ENV == :development
-    files = Dir.foreach("#{settings.public_dir}/img/gifs").reject { |l| l[0] == "." }
-    return files.map { |l| "/img/gifs/#{l}" }.shuffle
-  else
-    return []
+  get "/" do
+    if session[:username]
+      @images = Image.where(username: session[:username]).limit(100).order(updated_at: :desc)
+      erb :home
+    else
+      erb :login
+    end
+  end
+
+  get "/auth/:name/callback" do
+    auth = request.env["omniauth.auth"]
+    session[:username] = auth.info.nickname
+
+    redirect "/"
+  end
+
+  post "/upload" do
+    if !session[:username]
+      error 403
+      return
+    end
+
+    uuid = SecureRandom.uuid
+    filename = "#{session[:username]}/#{uuid}"
+    file = @bucket.files.create(
+      :key => filename,
+      :body => File.open(params["file"][:tempfile]),
+      :public => true
+    )
+
+    i = Image.new
+    i.username = session[:username]
+    i.stub = params["stub"]
+    i.gif_url = file.public_url
+    i.save
+
+    redirect "/"
   end
 end

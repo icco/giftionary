@@ -1,7 +1,0 @@
-#! /bin/sh
-
-curl 'https://www.tumblr.com/svc/search/inline_gif' \
- -H 'x-tumblr-form-key: TZDa1ozE8d8ebfft06sPZakAypM' \
- -H 'cookie: pfp=rBZtCwy8GglYA6PXDDfa8PlwbecBo6irq8IwllkV; pfs=2BZ1elUgwfwocEyEPzHMITAD6oU; pfe=1470326716; pfu=120853812' \
- -H 'cache-control: no-cache' \
- -H 'referer: https://www.tumblr.com/dashboard' --data 'q=trees&limit=200&context=inline-gif' --compressed
