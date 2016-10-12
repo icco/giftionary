@@ -171,6 +171,7 @@ GEM
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     unicode-display_width (1.1.1)
+    vcr (3.0.3)
     websocket (1.2.3)
 
 PLATFORMS
@@ -196,6 +197,7 @@ DEPENDENCIES
   textacular (~> 3.0)
   thin
   travis
+  vcr
 
 RUBY VERSION
    ruby 2.3.1p112
