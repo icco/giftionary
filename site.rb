@@ -104,4 +104,12 @@ class Giftionary < Sinatra::Base
 
     redirect "/"
   end
+
+  def title
+    if @title
+      " - #{@title}"
+    else
+      ""
+    end
+  end
 end
