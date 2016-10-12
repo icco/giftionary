@@ -28,6 +28,7 @@ end
 
 # For dev
 group :development do
+  gem "rubocop"
   gem "shotgun"
   gem "travis"
 end
