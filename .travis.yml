@@ -1,6 +1,7 @@
 language: ruby
 rvm:
 - 2.3.1
+cache: bundler
 env:
   global:
   - RACK_ENV=test
