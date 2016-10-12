@@ -18,7 +18,6 @@ gem "thin"
 
 group :test do
   gem "rack-test"
-  gem "vcr"
 end
 
 # For dev
