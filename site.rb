@@ -96,6 +96,13 @@ class Giftionary < Sinatra::Base
     redirect "/"
   end
 
+  get "/logout" do
+    session[:username] = nil
+    session = nil
+
+    redirect "/"
+  end
+
   post "/upload" do
     unless session[:username]
       error 403
