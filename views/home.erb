@@ -3,3 +3,22 @@
   <input type="file" name="file" />
   <input type="submit" value="Upload!" />
 </form>
+
+<article>
+  <h2 class="f3 fw4 pa3 mv0">Images</h2>
+  <div class="cf pa2">
+    <% @images.each do |i| %>
+      <div class="fl w-50 w-25-m w-20-l pa2">
+        <a href="<%= i.share %>" class="db link dim tc">
+          <img src="<%= i.gif_url %>" class="w-100 db outline black-10"/>
+          <dl class="mt2 f6 lh-copy">
+            <dt class="clip">stub</dt>
+            <dd class="ml0 black truncate w-100"><%= i.stub %></dd>
+            <dt class="clip">Artist</dt>
+            <dd class="ml0 gray truncate w-100">Frank Ocean</dd>
+          </dl>
+        </a>
+      </div>
+    <% end %>
+  </div>
+</article>

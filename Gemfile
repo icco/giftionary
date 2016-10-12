@@ -11,6 +11,7 @@ gem "mime-types"
 gem "oj"
 gem "oj_mimic_json"
 gem "omniauth"
+gem "google-api-client", '~> 0.8.6'
 gem "omniauth-twitter"
 gem "pg"
 gem "rack-protection", require: "rack/protection"
