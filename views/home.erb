@@ -10,12 +10,12 @@
     <% @images.each do |i| %>
       <div class="fl w-50 w-25-m w-20-l pa2">
         <a href="<%= i.share %>" class="db link dim tc">
-          <img src="<%= i.gif_url %>" class="w-100 db outline black-10"/>
+          <img src="<%= i.url %>" class="w-100 db outline black-10"/>
           <dl class="mt2 f6 lh-copy">
-            <dt class="clip">stub</dt>
+            <dt class="clip">Stub</dt>
             <dd class="ml0 black truncate w-100"><%= i.stub %></dd>
-            <dt class="clip">Artist</dt>
-            <dd class="ml0 gray truncate w-100">Frank Ocean</dd>
+            <dt class="clip">Description</dt>
+            <dd class="ml0 gray truncate w-100"><%= i.description %></dd>
           </dl>
         </a>
       </div>
