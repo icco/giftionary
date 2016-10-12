@@ -68,6 +68,11 @@ class Giftionary < Sinatra::Base
     "ok"
   end
 
+  get "/:username/:stub" do
+    @image = Image.where(username: params[:username], stub: params[:stub]).first
+    redirect @image.url
+  end
+
   get "/" do
     if session[:username]
       @images = Image.where(username: session[:username]).limit(100).order(updated_at: :desc)
