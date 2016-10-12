@@ -1,0 +1,31 @@
+<div class="pa4-l">
+  <form class="mw7 center pa4" method="post" action="/search">
+    <fieldset class="cf bn ma0 pa0">
+      <div class="cf br2-ns ba b--black-10">
+        <input class="fl f6 f5-l input-reset bn black-80 bg-white fl pa3 lh-solid w-100 w-75-m w-80-l br2-ns br--left-ns" placeholder="Search string" type="text" name="search" value="<%= @search %>" id="search">
+        <input class="fl f6 f5-l button-reset pv3 tc bn bg-animate bg-black-70 hover-bg-black white pointer w-100 w-25-m w-20-l br2-ns br--right-ns" type="submit" value="Search">
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+
+
+<article class="pa4 black-80">
+  <h2 class="f3 fw4 pv3 mv0">Images</h2>
+  <div class="cf pa2">
+    <% @images.each do |i| %>
+      <div class="fl w-50 w-25-m w-20-l pa2">
+        <a href="<%= i.share %>" class="db link dim tc">
+          <img src="<%= i.url %>" class="w-100 db outline black-10"/>
+          <dl class="mt2 f6 lh-copy">
+            <dt class="clip">Stub</dt>
+            <dd class="ml0 black truncate w-100"><%= i.stub %></dd>
+            <dt class="clip">Description</dt>
+            <dd class="ml0 gray truncate w-100"><%= i.description %></dd>
+          </dl>
+        </a>
+      </div>
+    <% end %>
+  </div>
+</article>

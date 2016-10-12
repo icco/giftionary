@@ -29,6 +29,7 @@ class Giftionary < Sinatra::Base
       test: "postgres://postgres@localhost/giftionary_test",
       production: ENV["DATABASE_URL"],
     }
+    # connections[:development] = ENV["DATABASE_URL"]
 
     url = URI(connections[RACK_ENV])
     options = {
@@ -123,6 +124,21 @@ class Giftionary < Sinatra::Base
     session = nil
 
     redirect "/"
+  end
+
+  get "/search/*" do
+    unless session[:username]
+      error 403
+      return
+    end
+
+    @search = params["splat"].join(" ")
+    @images = Image.where(username: session[:username]).basic_search(@search)
+    erb :search
+  end
+
+  post "/search/?" do
+    redirect "/search/#{params["search"]}"
   end
 
   post "/upload" do
