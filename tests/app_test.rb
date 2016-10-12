@@ -7,6 +7,10 @@ class Test < Minitest::Test
     Giftionary
   end
 
+  def setup
+    Image.all.destroy_all
+  end
+
   def test_health_no_slash
     get "/health"
     assert last_response.ok?
@@ -24,6 +28,6 @@ class Test < Minitest::Test
     }
     env =  { 'rack.session' => { username: "test_user" } }
     post "/upload", params, env
-    assert last_response.ok?
+    assert last_response.redirect?
   end
 end
