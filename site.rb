@@ -13,6 +13,7 @@ require "./lib/image.rb"
 class Giftionary < Sinatra::Base
   register Sinatra::ActiveRecordExtension
   use Rack::Deflater
+  use SecureHeaders::Middleware
 
   if RACK_ENV.eql? :production
     # Force HTTPS
@@ -49,15 +50,37 @@ class Giftionary < Sinatra::Base
     set :database, options
 
     use Rack::Session::Cookie, key: "rack.session",
-                               path: "/",
-                               expire_after: 86_400, # 1 day
-                               secret: ENV["SESSION_SECRET"]
+      path: "/",
+      expire_after: 86_400, # 1 day
+      secret: ENV["SESSION_SECRET"]
     use OmniAuth::Builder do
       provider :twitter, ENV["TWITTER_CONSUMER_KEY"], ENV["TWITTER_CONSUMER_SECRET"]
     end
 
     MiniMagick.configure do |config|
       config.timeout = 1
+    end
+
+    SecureHeaders::Configuration.default do |config|
+      # We just want the defaults.
+      config.csp = {
+        # "meta" values. these will shaped the header, but the values are not included in the header.
+        report_only: true,      # default: false [DEPRECATED from 3.5.0: instead, configure csp_report_only]
+        preserve_schemes: true, # default: false. Schemes are removed from host sources to save bytes and discourage mixed content.
+
+        # directive values: these values will directly translate into source directives
+        default_src: %w(https: 'self'),
+        base_uri: %w('self'),
+        block_all_mixed_content: true, # see http://www.w3.org/TR/mixed-content/
+        child_src: %w('self'), # if child-src isn't supported, the value for frame-src will be set.
+        connect_src: %w(wss:),
+        font_src: %w('self' data:),
+        form_action: %w('self'),
+        frame_ancestors: %w('none'),
+        script_src: %w('self'),
+        style_src: %w('unsafe-inline' unpkg.com),
+        report_uri: %w(https://191252c4ba611a6b85d3420e1825bcb5.report-uri.io/r/default/csp/reportOnly)
+      }
     end
   end
 
@@ -142,11 +165,11 @@ class Giftionary < Sinatra::Base
       erb :twitter, :layout => false
     else
 
-    Typhoeus::Config.user_agent = "Giftionary/#{VERSION} (+https://github.com/icco/giftionary)"
-    resp = Typhoeus.get(@image.url, followlocation: true)
+      Typhoeus::Config.user_agent = "Giftionary/#{VERSION} (+https://github.com/icco/giftionary)"
+      resp = Typhoeus.get(@image.url, followlocation: true)
 
-    headers resp.headers
-    resp.body
+      headers resp.headers
+      resp.body
     end
   end
 
