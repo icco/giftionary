@@ -73,10 +73,17 @@ class Giftionary < Sinatra::Base
     redirect @image.url
   end
 
+  get "/:username" do
+    @title = "@#{params["username"]}"
+    if session[:username]
+      @images = Image.where(username: session[:username]).order(updated_at: :desc)
+      erb :home
+    end
+  end
+
   get "/" do
     if session[:username]
-      @images = Image.where(username: session[:username]).limit(100).order(updated_at: :desc)
-      erb :home
+      redirect "/#{session[:username]}"
     else
       erb :login
     end
@@ -97,6 +104,14 @@ class Giftionary < Sinatra::Base
 
     uuid = SecureRandom.uuid
     filename = "#{session[:username]}/#{uuid}"
+
+    # We only support images
+    media_type = MIME::Types.type_for(params["file"][:tempfile]).first.try(:media_type)
+    if media_type != "image"
+      error 400
+      return
+    end
+
     file = @bucket.files.create(
       key: filename,
       body: File.open(params["file"][:tempfile]),
