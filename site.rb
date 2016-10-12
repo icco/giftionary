@@ -112,6 +112,10 @@ class Giftionary < Sinatra::Base
     end
   end
 
+  get "/about/?" do
+    "This still needs to be written."
+  end
+
   get "/auth/:name/callback" do
     auth = request.env["omniauth.auth"]
     session[:username] = auth.info.nickname
