@@ -131,6 +131,11 @@ class Giftionary < Sinatra::Base
     @image = Image.where(username: params[:username], stub: params[:stub]).first
     error 404 unless @image
 
+    if request.user_agent == 'Twitterbot'
+      erb :twitter
+      return
+    end
+
     Typhoeus::Config.user_agent = "Giftionary/#{VERSION} (+https://github.com/icco/giftionary)"
     resp = Typhoeus.get(@image.url, followlocation: true)
 
