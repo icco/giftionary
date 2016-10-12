@@ -1,11 +1,27 @@
-<form method="post" enctype="multipart/form-data" action="/upload">
-  <input type="text" name="stub" />
-  <input type="file" name="file" />
-  <input type="submit" value="Upload!" />
-</form>
+<article class="pa4 black-80">
+  <h2 class="f3 fw4 pv3 mv0">Upload</h2>
+  <form method="post" enctype="multipart/form-data" action="/upload" accept-charset="utf-8">
+    <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
+      <legend class="ph0 mh0 fw6 clip">Sign Up</legend>
+      <div class="mt3">
+        <label class="db fw4 lh-copy f6" for="stub">Stub</label>
+        <input class="pa2 input-reset ba bg-transparent w-100 measure" type="text" name="stub" id="stub">
+      </div>
+      <div class="mt3">
+        <label class="db fw4 lh-copy f6" for="description">Description</label>
+        <input class="b pa2 input-reset ba bg-transparent w-100 measure" type="text" name="description" id="description">
+      </div>
+      <div class="mt3">
+        <label class="db fw4 lh-copy f6" for="stub">File</label>
+        <input class="pa2 input-reset ba bg-transparent w-100 measure" type="file" name="file" id="file">
+      </div>
+    </fieldset>
+    <div class="mt3"><input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6" type="submit" value="Upload!"></div>
+  </form>
+</article>
 
-<article>
-  <h2 class="f3 fw4 pa3 mv0">Images</h2>
+<article class="pa4 black-80">
+  <h2 class="f3 fw4 pv3 mv0">Images</h2>
   <div class="cf pa2">
     <% @images.each do |i| %>
       <div class="fl w-50 w-25-m w-20-l pa2">
