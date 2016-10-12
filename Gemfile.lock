@@ -148,6 +148,8 @@ GEM
     sinatra-activerecord (2.0.10)
       activerecord (>= 3.2)
       sinatra (~> 1.0)
+    textacular (3.2.2)
+      activerecord (>= 3.0, < 5.0)
     thin (1.7.0)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0, >= 1.0.4)
@@ -189,6 +191,7 @@ DEPENDENCIES
   shotgun
   sinatra
   sinatra-activerecord
+  textacular (~> 3.0)
   thin
   travis
 

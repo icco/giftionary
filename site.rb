@@ -6,6 +6,8 @@ Bundler.require(:default, RACK_ENV)
 require "logger"
 require "set"
 
+ActiveRecord::Base.extend(Textacular)
+
 require "./version.rb"
 require "./lib/image.rb"
 
