@@ -51,6 +51,10 @@ class Giftionary < Sinatra::Base
     use OmniAuth::Builder do
       provider :twitter, ENV["TWITTER_CONSUMER_KEY"], ENV["TWITTER_CONSUMER_SECRET"]
     end
+
+    MiniMagick.configure do |config|
+      config.timeout = 1
+    end
   end
 
   before do
@@ -149,7 +153,6 @@ class Giftionary < Sinatra::Base
 
   def file_is_image? file
     image = MiniMagick::Image.read(file)
-    p image.type
-    ["gif", "jpeg", "png"].include? image.type.downcase
+    return image.valid?
   end
 end
