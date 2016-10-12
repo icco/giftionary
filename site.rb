@@ -65,6 +65,8 @@ class Giftionary < Sinatra::Base
                                                    service: @connection,
                                                    preifx: "#{session[:username]}/")
     end
+
+    puts "User-Agent: #{request.user_agent}"
   end
 
   get "/health/?" do
