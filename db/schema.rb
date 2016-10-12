@@ -11,16 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_161_011_022_224) do
+ActiveRecord::Schema.define(version: 20161012015732) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_trgm"
 
   create_table "images", force: :cascade do |t|
     t.string   "username"
-    t.string   "gif_url"
+    t.string   "url"
     t.string   "stub"
-    t.text     "tags", default: [], array: true
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "description"
   end
+
 end

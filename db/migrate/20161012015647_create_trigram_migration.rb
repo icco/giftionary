@@ -1,4 +1,4 @@
-class InstallTrigram < ActiveRecord::Migration
+class CreateTrigramMigration < ActiveRecord::Migration
   def self.up
     ActiveRecord::Base.connection.execute("CREATE EXTENSION IF NOT EXISTS pg_trgm;")
   end
