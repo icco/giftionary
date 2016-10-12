@@ -4,7 +4,6 @@ RACK_ENV = (ENV["RACK_ENV"] || :development).to_sym
 Bundler.require(:default, RACK_ENV)
 
 require "logger"
-require "set"
 
 ActiveRecord::Base.extend(Textacular)
 
@@ -130,7 +129,13 @@ class Giftionary < Sinatra::Base
 
   get "/:username/:stub" do
     @image = Image.where(username: params[:username], stub: params[:stub]).first
-    redirect @image.url
+    error 404 unless @image
+
+    Typhoeus::Config.user_agent = "Giftionary/#{VERSION} (+https://github.com/icco/giftionary)"
+    resp = Typhoeus.get(@image.url, followlocation: true)
+
+    headers resp.headers
+    resp.body
   end
 
   get "/:username" do

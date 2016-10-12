@@ -197,6 +197,7 @@ DEPENDENCIES
   textacular (~> 3.0)
   thin
   travis
+  typhoeus
   vcr
 
 RUBY VERSION
