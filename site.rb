@@ -14,6 +14,11 @@ class Giftionary < Sinatra::Base
   register Sinatra::ActiveRecordExtension
   use Rack::Deflater
 
+  if RACK_ENV.eql? :production
+    # Force HTTPS
+    use Rack::SslEnforcer
+  end
+
   layout :main
   configure do
     set :logging, true
