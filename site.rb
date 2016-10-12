@@ -50,9 +50,9 @@ class Giftionary < Sinatra::Base
     set :database, options
 
     use Rack::Session::Cookie, key: "rack.session",
-      path: "/",
-      expire_after: 86_400, # 1 day
-      secret: ENV["SESSION_SECRET"]
+                               path: "/",
+                               expire_after: 86_400, # 1 day
+                               secret: ENV["SESSION_SECRET"]
     use OmniAuth::Builder do
       provider :twitter, ENV["TWITTER_CONSUMER_KEY"], ENV["TWITTER_CONSUMER_SECRET"]
     end
@@ -61,6 +61,7 @@ class Giftionary < Sinatra::Base
       config.timeout = 1
     end
 
+    # rubocop:disable
     SecureHeaders::Configuration.default do |config|
       # We just want the defaults.
       config.csp = {
@@ -79,9 +80,10 @@ class Giftionary < Sinatra::Base
         frame_ancestors: %w('none'),
         script_src: %w('self'),
         style_src: %w('unsafe-inline' unpkg.com),
-        report_uri: %w(https://191252c4ba611a6b85d3420e1825bcb5.report-uri.io/r/default/csp/reportOnly)
+        report_uri: %w(https://191252c4ba611a6b85d3420e1825bcb5.report-uri.io/r/default/csp/reportOnly),
       }
     end
+    # rubocop:enable
   end
 
   before do
@@ -162,7 +164,7 @@ class Giftionary < Sinatra::Base
     error 404 unless @image
 
     if /^Twitterbot/.match(request.user_agent)
-      erb :twitter, :layout => false
+      erb :twitter, layout: false
     else
 
       Typhoeus::Config.user_agent = "Giftionary/#{VERSION} (+https://github.com/icco/giftionary)"
@@ -191,8 +193,8 @@ class Giftionary < Sinatra::Base
     end
   end
 
-  def file_is_image? file
+  def file_is_image?(file)
     image = MiniMagick::Image.read(file)
-    return image.valid?
+    image.valid?
   end
 end

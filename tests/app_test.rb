@@ -25,9 +25,9 @@ class AppTest < Minitest::Test
     VCR.use_cassette("upload") do
       params = {
         file: Rack::Test::UploadedFile.new(File.expand_path("../flatcircle.gif", __FILE__)),
-        stub: "flatcircle"
+        stub: "flatcircle",
       }
-      env =  { 'rack.session' => { username: "test_user" } }
+      env = { "rack.session" => { username: "test_user" } }
       post "/upload", params, env
       assert last_response.redirect?
     end
@@ -37,9 +37,9 @@ class AppTest < Minitest::Test
     VCR.use_cassette("upload") do
       params = {
         file: Rack::Test::UploadedFile.new(File.expand_path("../flatcircle.gif", __FILE__)),
-        stub: "flat circle"
+        stub: "flat circle",
       }
-      env =  { 'rack.session' => { username: "test_user" } }
+      env = { "rack.session" => { username: "test_user" } }
       post "/upload", params, env
       refute last_response.ok?
     end
