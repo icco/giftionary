@@ -1,4 +1,13 @@
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@giftionary">
-<meta name="twitter:creator" content="@<%= @image.username %>">
-<meta name="twitter:image" content="<%= @image.url %>">
+<!doctype html>
+<html>
+  <head>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@giftionarycity">
+    <meta name="twitter:creator" content="@<%= @image.username %>">
+    <meta name="twitter:image" content="<%= @image.url %>">
+    <title>Giftionary.City - <%= @image.username %>/<%= @image.stub %></title>
+  </head>
+  <body>
+    <img src="<%= @image.url %>">
+  </body>
+</html>
