@@ -102,8 +102,6 @@ GEM
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
     oauth (0.5.1)
-    oj (2.17.4)
-    oj_mimic_json (1.0.1)
     omniauth (1.3.1)
       hashie (>= 1.2, < 4)
       rack (>= 1.0, < 3)
@@ -150,13 +148,6 @@ GEM
     sinatra-activerecord (2.0.10)
       activerecord (>= 3.2)
       sinatra (~> 1.0)
-    sinatra-contrib (1.4.7)
-      backports (>= 2.0)
-      multi_json
-      rack-protection
-      rack-test
-      sinatra (~> 1.4.0)
-      tilt (>= 1.3, < 3)
     thin (1.7.0)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0, >= 1.0.4)
@@ -185,14 +176,10 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord (~> 4.2)
-  activesupport (~> 4.2)
   erubis
   fog-google
   google-api-client (~> 0.8.6)
-  json
   mime-types
-  oj
-  oj_mimic_json
   omniauth
   omniauth-twitter
   pg
@@ -203,7 +190,6 @@ DEPENDENCIES
   shotgun
   sinatra
   sinatra-activerecord
-  sinatra-contrib
   thin
   travis
   vcr
