@@ -18,19 +18,19 @@ class Giftionary < Sinatra::Base
     set :logging, true
 
     connections = {
-      :development => "postgres://localhost/giftionary",
-      :test => "postgres://postgres@localhost/giftionary_test",
-      :production => ENV["DATABASE_URL"]
+      development: "postgres://localhost/giftionary",
+      test: "postgres://postgres@localhost/giftionary_test",
+      production: ENV["DATABASE_URL"],
     }
 
     url = URI(connections[RACK_ENV])
     options = {
-      :adapter => url.scheme,
-      :host => url.host,
-      :port => url.port,
-      :database => url.path[1..-1],
-      :username => url.user,
-      :password => url.password
+      adapter: url.scheme,
+      host: url.host,
+      port: url.port,
+      database: url.path[1..-1],
+      username: url.user,
+      password: url.password,
     }
 
     case url.scheme
@@ -42,28 +42,23 @@ class Giftionary < Sinatra::Base
     end
     set :database, options
 
-    use Rack::Session::Cookie, :key => "rack.session",
-      :path => "/",
-      :expire_after => 86400, # 1 day
-      :secret => ENV["SESSION_SECRET"]
+    use Rack::Session::Cookie, key: "rack.session",
+                               path: "/",
+                               expire_after: 86_400, # 1 day
+                               secret: ENV["SESSION_SECRET"]
     use OmniAuth::Builder do
       provider :twitter, ENV["TWITTER_CONSUMER_KEY"], ENV["TWITTER_CONSUMER_SECRET"]
     end
-
   end
 
   before do
     if session[:username]
-      @connection = Fog::Storage::GoogleJSON.new({
-        google_project: "icco-natwelch",
-        google_json_key_string: ENV["GOOGLE_JSON_KEY"],
-      })
+      @connection = Fog::Storage::GoogleJSON.new(google_project: "icco-natwelch",
+                                                 google_json_key_string: ENV["GOOGLE_JSON_KEY"])
       @bucket = @connection.directories.get("giftionary")
-      @files = Fog::Storage::GoogleJSON::Files.new({
-        directory: @bucket,
-        service: @connection,
-        preifx: "#{session[:username]}/"
-      })
+      @files = Fog::Storage::GoogleJSON::Files.new(directory: @bucket,
+                                                   service: @connection,
+                                                   preifx: "#{session[:username]}/")
     end
   end
 
@@ -88,7 +83,7 @@ class Giftionary < Sinatra::Base
   end
 
   post "/upload" do
-    if !session[:username]
+    unless session[:username]
       error 403
       return
     end
@@ -96,9 +91,9 @@ class Giftionary < Sinatra::Base
     uuid = SecureRandom.uuid
     filename = "#{session[:username]}/#{uuid}"
     file = @bucket.files.create(
-      :key => filename,
-      :body => File.open(params["file"][:tempfile]),
-      :public => true
+      key: filename,
+      body: File.open(params["file"][:tempfile]),
+      public: true
     )
 
     i = Image.new

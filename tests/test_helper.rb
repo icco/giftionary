@@ -1,7 +1,7 @@
-ENV['RACK_ENV'] = 'test'
-require 'minitest/autorun'
-require 'rack/test'
-require 'vcr'
+ENV["RACK_ENV"] = "test"
+require "minitest/autorun"
+require "rack/test"
+require "vcr"
 
 VCR.configure do |config|
   config.cassette_library_dir = "tests/vcr_cassettes"
@@ -12,4 +12,4 @@ VCR.configure do |config|
   }
 end
 
-require File.expand_path '../../site.rb', __FILE__
+require File.expand_path "../../site.rb", __FILE__

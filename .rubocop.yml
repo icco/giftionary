@@ -4,3 +4,8 @@ Style/StringLiteralsInInterpolation:
   EnforcedStyle: double_quotes
 Metrics/LineLength:
   Max: 100
+Style/TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: comma
+  SupportedStyles:
+    - comma
+    - no_comma
