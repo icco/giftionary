@@ -4,6 +4,7 @@ rvm:
 env:
   global:
   - RACK_ENV=test
+  - SESSION_SECRET=hjasgdahjdgakjshdgaskdgaskjdgakg
 services:
 - postgresql
 addons:

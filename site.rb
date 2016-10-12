@@ -53,11 +53,11 @@ class Giftionary < Sinatra::Base
   end
 
   before do
-    @connection = Fog::Storage::GoogleJSON.new({
-      google_project: "icco-natwelch",
-      google_json_key_string: ENV["GOOGLE_JSON_KEY"],
-    })
     if session[:username]
+      @connection = Fog::Storage::GoogleJSON.new({
+        google_project: "icco-natwelch",
+        google_json_key_string: ENV["GOOGLE_JSON_KEY"],
+      })
       @bucket = @connection.directories.get("giftionary")
       @files = Fog::Storage::GoogleJSON::Files.new({
         directory: @bucket,
