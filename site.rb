@@ -113,7 +113,7 @@ class Giftionary < Sinatra::Base
   end
 
   get "/about/?" do
-    "This still needs to be written."
+    erb :about
   end
 
   get "/auth/:name/callback" do
