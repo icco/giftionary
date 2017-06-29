@@ -176,6 +176,10 @@ class Giftionary < Sinatra::Base
     i.url = file.public_url
     i.save
 
+    unless i.valid?
+      error 400
+    end
+
     redirect "/"
   end
 
