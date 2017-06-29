@@ -16,7 +16,7 @@ Rake::TestTask.new do |t|
   t.pattern = "tests/*_test.rb"
 end
 
-task default: %i[environment test]
+task default: [:environment, :test]
 task environment: ["db:load_config"]
 
 desc "Run a local server."
