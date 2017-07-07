@@ -187,7 +187,7 @@ class Giftionary < Sinatra::Base
     @image = Image.where(username: params[:username], stub: params[:stub]).first
     error 404 unless @image
 
-    if /^Twitterbot/.match(request.user_agent)
+    if /^(Twitterbot|Slack)/.match(request.user_agent)
       erb :twitter, layout: false
     else
 
