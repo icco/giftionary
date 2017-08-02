@@ -154,26 +154,30 @@ class Giftionary < Sinatra::Base
     uuid = SecureRandom.uuid
     filename = "#{session[:username]}/#{uuid}"
     tmpfile = params["file"][:tempfile]
+    mimetype = mime_type(tmpfile)
 
     # We only support images
-    unless file_is_image?(tmpfile)
+    if mimetype.nil?
       error 400
       return
     end
 
     tmpfile.rewind
-
+    fp = File.open(tmpfile)
     file = @bucket.files.create(
       key: filename,
-      body: File.open(tmpfile),
-      public: true
+      body: fp,
+      public: true,
+      "content-type": mimetype
     )
+    fp.close
 
     i = Image.new
     i.username = session[:username]
     i.stub = params["stub"].to_s.downcase
     i.description = params["description"]
     i.url = file.public_url
+    i.mimetype = mimetype
     i.save
 
     unless i.valid?
@@ -217,8 +221,12 @@ class Giftionary < Sinatra::Base
     end
   end
 
-  def file_is_image?(file)
+  def mime_type(file)
     image = MiniMagick::Image.read(file)
-    image.valid?
+    if image.valid?
+      return image.mime_type
+    end
+
+    return nil
   end
 end
