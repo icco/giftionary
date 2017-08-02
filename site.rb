@@ -154,7 +154,7 @@ class Giftionary < Sinatra::Base
     uuid = SecureRandom.uuid
     filename = "#{session[:username]}/#{uuid}"
     tmpfile = params["file"][:tempfile]
-    mimetype = mime_type(tmpfile)
+    mimetype = get_mime_type(tmpfile)
 
     # We only support images
     if mimetype.nil?
@@ -221,8 +221,8 @@ class Giftionary < Sinatra::Base
     end
   end
 
-  def mime_type(file)
-    image = MiniMagick::Image.read(file)
+  def get_mime_type(file)
+    image = MiniMagick::Image.open(file)
     if image.valid?
       return image.mime_type
     end
