@@ -6,12 +6,10 @@ class Image < ActiveRecord::Base
   end
 
   def imgix_url
-    u = URI.parse(self.url)
+    u = URI.parse(url)
     items = u.path.split("/")
-    if items.size == 4
-      items.slice! 1
-    end
+    items.slice! 1 if items.size == 4
 
-    return "https://giftionary.imgix.net#{items.join("/")}?auto=compress,format"
+    "https://giftionary.imgix.net#{items.join("/")}?auto=compress,format"
   end
 end
