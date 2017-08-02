@@ -62,7 +62,7 @@ class Giftionary < Sinatra::Base
       config.timeout = 1
     end
 
-    # rubocop:disable
+    # rubocop:disable all
     SecureHeaders::Configuration.default do |config|
       # We just want the defaults.
       config.csp = SecureHeaders::OPT_OUT
@@ -84,7 +84,7 @@ class Giftionary < Sinatra::Base
         report_uri: %w(https://191252c4ba611a6b85d3420e1825bcb5.report-uri.io/r/default/csp/reportOnly),
       }
     end
-    # rubocop:enable
+    # rubocop:enable all
   end
 
   before do
@@ -180,9 +180,7 @@ class Giftionary < Sinatra::Base
     i.mimetype = mimetype
     i.save
 
-    unless i.valid?
-      error 400
-    end
+    error 400 unless i.valid?
 
     redirect "/"
   end
@@ -223,10 +221,8 @@ class Giftionary < Sinatra::Base
 
   def get_mime_type(file)
     image = MiniMagick::Image.read(file)
-    if image.valid?
-      return image.mime_type
-    end
+    return image.mime_type if image.valid?
 
-    return nil
+    nil
   end
 end
