@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 ruby "2.4.1"
 
-gem "activerecord", "~> 4.2", require: "active_record"
+gem "activerecord", "~> 5.0", require: "active_record"
 gem "erubis"
 gem "fog-google", git: "https://github.com/fog/fog-google.git", branch: "upgrade-google-client"
 gem "mime-types"
