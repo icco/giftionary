@@ -65,9 +65,9 @@ class Giftionary < Sinatra::Base
     # rubocop:disable
     SecureHeaders::Configuration.default do |config|
       # We just want the defaults.
-      config.csp = {
+      config.csp = SecureHeaders::OPT_OUT
+      config.csp_report_only = {
         # "meta" values. these will shaped the header, but the values are not included in the header.
-        report_only: true,      # default: false [DEPRECATED from 3.5.0: instead, configure csp_report_only]
         preserve_schemes: true, # default: false. Schemes are removed from host sources to save bytes and discourage mixed content.
 
         # directive values: these values will directly translate into source directives
