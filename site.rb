@@ -168,7 +168,7 @@ class Giftionary < Sinatra::Base
       key: filename,
       body: fp,
       public: true,
-      "content-type": mimetype
+      contentType: mimetype
     )
     fp.close
 
@@ -221,7 +221,7 @@ class Giftionary < Sinatra::Base
   end
 
   def get_mime_type(file)
-    image = MiniMagick::Image.open(file)
+    image = MiniMagick::Image.read(file)
     if image.valid?
       return image.mime_type
     end
