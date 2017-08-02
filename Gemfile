@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "2.4.0"
+ruby "2.4.1"
 
 gem "activerecord", "~> 4.2", require: "active_record"
 gem "erubis"
