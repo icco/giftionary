@@ -6,5 +6,6 @@ Metrics/LineLength:
   Max: 100
 Style/TrailingCommaInLiteral:
   EnforcedStyleForMultiline: comma
-Style/NumericLiterals:
-  Enabled: false
+  SupportedStyles:
+    - comma
+    - no_comma

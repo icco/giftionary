@@ -71,17 +71,17 @@ class Giftionary < Sinatra::Base
         preserve_schemes: true, # default: false. Schemes are removed from host sources to save bytes and discourage mixed content.
 
         # directive values: these values will directly translate into source directives
-        default_src: %w[https: self],
-        base_uri: %w[self],
+        default_src: %w(https: 'self'),
+        base_uri: %w('self'),
         block_all_mixed_content: true, # see http://www.w3.org/TR/mixed-content/
-        child_src: %w[self], # if child-src isn't supported, the value for frame-src will be set.
-        connect_src: %w[wss:],
-        font_src: %w[self data:],
-        form_action: %w[self],
-        frame_ancestors: %w[none],
-        script_src: %w[self],
-        style_src: %w[unsafe-inline unpkg.com],
-        report_uri: %w[https://191252c4ba611a6b85d3420e1825bcb5.report-uri.io/r/default/csp/reportOnly],
+        child_src: %w('self'), # if child-src isn't supported, the value for frame-src will be set.
+        connect_src: %w(wss:),
+        font_src: %w('self' data:),
+        form_action: %w('self'),
+        frame_ancestors: %w('none'),
+        script_src: %w('self'),
+        style_src: %w('unsafe-inline' unpkg.com),
+        report_uri: %w(https://191252c4ba611a6b85d3420e1825bcb5.report-uri.io/r/default/csp/reportOnly),
       }
     end
     # rubocop:enable
@@ -180,7 +180,9 @@ class Giftionary < Sinatra::Base
     i.mimetype = mimetype
     i.save
 
-    error 400 unless i.valid?
+    unless i.valid?
+      error 400
+    end
 
     redirect "/"
   end
@@ -221,8 +223,10 @@ class Giftionary < Sinatra::Base
 
   def get_mime_type(file)
     image = MiniMagick::Image.read(file)
-    return image.mime_type if image.valid?
+    if image.valid?
+      return image.mime_type
+    end
 
-    nil
+    return nil
   end
 end

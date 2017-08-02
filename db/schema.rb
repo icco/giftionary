@@ -11,6 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20170802184533) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pg_trgm"
@@ -24,4 +25,5 @@ ActiveRecord::Schema.define(version: 20170802184533) do
     t.string "description"
     t.string "mimetype"
   end
+
 end
