@@ -193,8 +193,7 @@ class Giftionary < Sinatra::Base
       erb :twitter, layout: false
     else
       Typhoeus::Config.user_agent = "Giftionary/#{VERSION} (+https://github.com/icco/giftionary)"
-      # TODO: Replace with imgix_url
-      resp = Typhoeus.get(@image.url, followlocation: true)
+      resp = Typhoeus.get(@image.imgix_url, followlocation: true)
 
       headers resp.headers
       resp.body

@@ -17,7 +17,7 @@
     <% @images.each do |i| %>
       <div class="fl w-50 w-25-m w-20-l pa2">
         <a href="<%= i.share %>" class="db link dim tc">
-          <img src="<%= i.url %>" class="w-100 db outline black-10"/>
+          <img src="<%= i.imgix_url %>" class="w-100 db outline black-10"/>
           <dl class="mt2 f6 lh-copy">
             <dt class="clip">Stub</dt>
             <dd class="ml0 black truncate w-100"><%= i.stub %></dd>
