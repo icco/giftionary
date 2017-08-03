@@ -195,7 +195,11 @@ class Giftionary < Sinatra::Base
       Typhoeus::Config.user_agent = "Giftionary/#{VERSION} (+https://github.com/icco/giftionary)"
       resp = Typhoeus.get(@image.imgix_url, followlocation: true)
 
-      headers resp.headers
+      # TODO: Maybe delete this delete_if
+      hdrs = resp.headers.delete_if { |h| h.start_with? "X-" }
+      hdrs["Via"] = "Giftionary"
+
+      headers hdrs
       resp.body
     end
   end
