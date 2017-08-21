@@ -192,7 +192,10 @@ class Giftionary < Sinatra::Base
     if /^Twitterbot/.match(request.user_agent)
       erb :twitter, layout: false
     else
-      Typhoeus::Config.user_agent = "Giftionary/#{VERSION} (+https://github.com/icco/giftionary)"
+      # NOTE: turning off user_agent to see if that makes things better.
+      #Typhoeus::Config.user_agent = "Giftionary/#{VERSION} (+https://github.com/icco/giftionary)"
+      Typhoeus::Config.user_agent = request.user_agent
+
       resp = Typhoeus.get(@image.imgix_url, followlocation: true)
 
       # TODO: Maybe delete this delete_if
