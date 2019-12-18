@@ -125,7 +125,7 @@ GEM
     pusher-client (0.6.2)
       json
       websocket (~> 1.0)
-    rack (2.0.3)
+    rack (2.0.8)
     rack-protection (2.0.0)
       rack
     rack-ssl-enforcer (0.2.9)
