@@ -12,7 +12,7 @@ gem "omniauth-twitter"
 gem "pg"
 gem "rack-protection", require: "rack/protection"
 gem "rack-ssl-enforcer"
-gem "rake"
+gem "rake", ">= 12.3.3"
 gem "secure_headers", "~> 3.0" # TODO: Upgrade to 4.0
 gem "sinatra", require: "sinatra/base"
 gem "sinatra-activerecord", require: "sinatra/activerecord"
