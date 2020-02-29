@@ -132,7 +132,7 @@ GEM
     rack-test (0.8.2)
       rack (>= 1.0, < 3)
     rainbow (3.0.0)
-    rake (12.3.0)
+    rake (12.3.3)
     representable (3.0.4)
       declarative (< 0.1.0)
       declarative-option (< 0.2.0)
