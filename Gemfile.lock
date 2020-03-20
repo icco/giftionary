@@ -23,27 +23,27 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    addressable (2.5.2)
-      public_suffix (>= 2.0.2, < 4.0)
+    addressable (2.7.0)
+      public_suffix (>= 2.0.2, < 5.0)
     arel (8.0.0)
     ast (2.3.0)
-    backports (3.11.0)
+    backports (3.17.0)
     builder (3.2.3)
     concurrent-ruby (1.0.5)
-    connection_pool (2.2.1)
+    connection_pool (2.2.2)
     daemons (1.2.6)
     declarative (0.0.10)
     declarative-option (0.1.0)
     erubis (2.7.0)
-    ethon (0.11.0)
+    ethon (0.12.0)
       ffi (>= 1.3.0)
     eventmachine (1.2.5)
     excon (0.60.0)
-    faraday (0.13.1)
+    faraday (0.17.3)
       multipart-post (>= 1.2, < 3)
-    faraday_middleware (0.12.2)
+    faraday_middleware (0.14.0)
       faraday (>= 0.7.4, < 1.0)
-    ffi (1.9.18)
+    ffi (1.12.2)
     fog-core (1.45.0)
       builder
       excon (~> 0.58)
@@ -82,10 +82,10 @@ GEM
     httpclient (2.8.3)
     i18n (0.9.1)
       concurrent-ruby (~> 1.0)
-    json (2.1.0)
+    json (2.3.0)
     jwt (2.1.0)
-    launchy (2.4.3)
-      addressable (~> 2.3)
+    launchy (2.5.0)
+      addressable (~> 2.7)
     little-plugger (1.1.4)
     logging (2.2.2)
       little-plugger (~> 1.1)
@@ -97,10 +97,10 @@ GEM
     mini_magick (4.9.4)
     mini_portile2 (2.3.0)
     minitest (5.10.3)
-    multi_json (1.12.2)
-    multipart-post (2.0.0)
+    multi_json (1.14.1)
+    multipart-post (2.1.1)
     mustermann (1.0.1)
-    net-http-persistent (3.0.0)
+    net-http-persistent (3.1.0)
       connection_pool (~> 2.2)
     net-http-pipeline (1.0.1)
     nokogiri (1.8.1)
@@ -121,7 +121,7 @@ GEM
       ast (~> 2.3)
     pg (0.21.0)
     powerpack (0.1.1)
-    public_suffix (3.0.1)
+    public_suffix (4.0.3)
     pusher-client (0.6.2)
       json
       websocket (~> 1.0)
@@ -171,7 +171,7 @@ GEM
       rack (>= 1, < 3)
     thread_safe (0.3.6)
     tilt (2.0.8)
-    travis (1.8.8)
+    travis (1.8.11)
       backports
       faraday (~> 0.9)
       faraday_middleware (~> 0.9, >= 0.9.1)
@@ -188,7 +188,7 @@ GEM
     unicode-display_width (1.3.0)
     useragent (0.16.8)
     vcr (4.0.0)
-    websocket (1.2.5)
+    websocket (1.2.8)
 
 PLATFORMS
   ruby
@@ -213,7 +213,7 @@ DEPENDENCIES
   sinatra-activerecord
   textacular
   thin
-  travis
+  travis (>= 1.8.8)
   typhoeus
   vcr
 
