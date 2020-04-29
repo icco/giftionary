@@ -29,5 +29,5 @@ end
 group :development do
   gem "rubocop"
   gem "shotgun"
-  gem "travis"
+  gem "travis", ">= 1.8.8"
 end
