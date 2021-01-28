@@ -8,7 +8,7 @@ gem "fog-google", git: "https://github.com/fog/fog-google.git", branch: "upgrade
 gem "mime-types"
 gem "mini_magick", ">= 4.9.4"
 gem "omniauth"
-gem "omniauth-twitter"
+gem "omniauth-twitter", ">= 1.4.0"
 gem "pg"
 gem "rack-protection", require: "rack/protection"
 gem "rack-ssl-enforcer"
