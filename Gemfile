@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 ruby "2.5.0"
 
-gem "activerecord", "~> 5.0", require: "active_record"
+gem "activerecord", "~> 5.2", ">= 5.2.4.5", require: "active_record"
 gem "erubis"
 gem "fog-google", git: "https://github.com/fog/fog-google.git", branch: "upgrade-google-client"
 gem "mime-types"
@@ -15,8 +15,8 @@ gem "rack-ssl-enforcer"
 gem "rake"
 gem "secure_headers", "~> 3.0" # TODO: Upgrade to 4.0
 gem "sinatra", require: "sinatra/base"
-gem "sinatra-activerecord", require: "sinatra/activerecord"
-gem "textacular"
+gem "sinatra-activerecord", ">= 2.0.13", require: "sinatra/activerecord"
+gem "textacular", ">= 5.1.0"
 gem "thin"
 gem "typhoeus"
 
